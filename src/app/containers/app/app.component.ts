@@ -15,11 +15,12 @@ import { AuthFormComponent } from '../../components/auth-form.component';
   styleUrls: ['app.component.scss'],
   template: `
     <div [style.display]="'block'">
-      <div
+      <!-- it is for grouping some element -->
+      <ng-container
         [ngTemplateOutlet]="tpl"
         [ngTemplateOutletContext]="ctx"
       >
-      </div>
+      </ng-container>
       <ng-template #tpl let-name let-location="location">
         {{ name }}, {{ location }}
       </ng-template>
