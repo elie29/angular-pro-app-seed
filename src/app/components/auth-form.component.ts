@@ -1,5 +1,13 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { User } from 'src/app/components/user.interface';
+import {
+  AfterContentInit,
+  Component,
+  ContentChild,
+  EventEmitter,
+  Output
+} from '@angular/core';
+
+import { AuthRememberComponent } from './auth-remember.component';
+import { User } from './user.interface';
 
 @Component({
   selector: 'auth-form',
@@ -17,13 +25,29 @@ import { User } from 'src/app/components/user.interface';
       <input type="password" name="password" ngModel />
     </label>
     <ng-content select="auth-remember"></ng-content>
+    <div *ngIf="showMessage">
+      You will be logged in for 30 days.
+    </div>
     <ng-content select="button"></ng-content>
   </form>
 </div>
   `
 })
-export class AuthFormComponent {
+export class AuthFormComponent implements AfterContentInit {
   @Output() sumitted = new EventEmitter<User>();
+
+  @ContentChild(AuthRememberComponent)
+  private rememberMe: AuthRememberComponent;
+
+  showMessage = false;
+
+  ngAfterContentInit(): void {
+    if (this.rememberMe) {
+      this.rememberMe.checked.subscribe(
+        (event: boolean) => (this.showMessage = event)
+      );
+    }
+  }
 
   onSubmit(data: User): void {
     this.sumitted.emit(data);
