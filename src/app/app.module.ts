@@ -4,27 +4,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { Store } from 'store';
 
-import { AuthFormComponent } from './components/auth-form.component';
-import { AuthMessageComponent } from './components/auth-message.component';
-import { AuthRememberComponent } from './components/auth-remember.component';
-import { ExampleOneComponent } from './components/example-one.component';
-import { ExampleTwoComponent } from './components/example-two.component';
+import { CreditCardDirective } from './components/credit-card.directive';
 import { AppComponent } from './containers/app/app.component';
 
 export const ROUTES: Routes = [];
 
 @NgModule({
   imports: [BrowserModule, FormsModule, RouterModule.forRoot(ROUTES)],
-  declarations: [
-    AppComponent,
-    AuthFormComponent,
-    AuthRememberComponent,
-    AuthMessageComponent,
-    ExampleOneComponent,
-    ExampleTwoComponent
-  ],
+  declarations: [AppComponent, CreditCardDirective],
   providers: [Store],
-  bootstrap: [AppComponent],
-  entryComponents: [AuthFormComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
