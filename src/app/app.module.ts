@@ -7,6 +7,8 @@ import { Store } from 'store';
 import { AuthFormComponent } from './components/auth-form.component';
 import { AuthMessageComponent } from './components/auth-message.component';
 import { AuthRememberComponent } from './components/auth-remember.component';
+import { ExampleOneComponent } from './components/example-one.component';
+import { ExampleTwoComponent } from './components/example-two.component';
 import { AppComponent } from './containers/app/app.component';
 
 export const ROUTES: Routes = [];
@@ -17,7 +19,9 @@ export const ROUTES: Routes = [];
     AppComponent,
     AuthFormComponent,
     AuthRememberComponent,
-    AuthMessageComponent
+    AuthMessageComponent,
+    ExampleOneComponent,
+    ExampleTwoComponent
   ],
   providers: [Store],
   bootstrap: [AppComponent],

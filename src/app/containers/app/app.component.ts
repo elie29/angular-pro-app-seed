@@ -1,35 +1,34 @@
-import {
-  AfterContentInit,
-  Component,
-  ComponentFactoryResolver,
-  ComponentRef,
-  TemplateRef,
-  ViewChild,
-  ViewContainerRef
-} from '@angular/core';
-
-import { AuthFormComponent } from '../../components/auth-form.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   styleUrls: ['app.component.scss'],
   template: `
-    <div [style.display]="'block'">
-      <!-- it is for grouping some element -->
-      <ng-container
-        [ngTemplateOutlet]="tpl"
-        [ngTemplateOutletContext]="ctx"
-      >
-      </ng-container>
-      <ng-template #tpl let-name let-location="location">
-        {{ name }}, {{ location }}
-      </ng-template>
-    </div>
+    <button (click)="addProp()">Add property</button>
+    <button (click)="changeUser()">Change User</button>
+    <button (click)="changeName()">Change Name</button>
+    <example-one [user]="user"></example-one>
+    <example-two [user]="user"></example-two>
   `
 })
 export class AppComponent {
-  ctx = {
-    $implicit: 'Elie',
-    location: 'Paris - France'
+  user: any = {
+    name: 'Elie',
+    age: 38
   };
+
+  addProp(): void {
+    this.user.email = 'elie29@gmail.com';
+  }
+
+  changeUser(): void {
+    this.user = {
+      name: 'Todd',
+      age: 32
+    };
+  }
+
+  changeName(): void {
+    this.user.name = 'Nat';
+  }
 }
