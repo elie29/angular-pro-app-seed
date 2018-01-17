@@ -4,7 +4,9 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   selector: 'example-two',
   template: `
     <div>
+    <h3>Change detection push</h3>
       {{ user | json }}
+      <button (click)="change()">Change User</button>
     </div>
   `,
   // When user change and when its content change
@@ -14,4 +16,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class ExampleTwoComponent {
   @Input() user: any;
+
+  change(): void {
+    this.user.age = Math.floor(Math.random() * 100) + 1; // example one will detect this change
+  }
 }
