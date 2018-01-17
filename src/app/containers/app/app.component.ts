@@ -15,33 +15,20 @@ import { AuthFormComponent } from '../../components/auth-form.component';
   styleUrls: ['app.component.scss'],
   template: `
     <div [style.display]="'block'">
-      <div #entry></div>
+      <div
+        [ngTemplateOutlet]="tpl"
+        [ngTemplateOutletContext]="ctx"
+      >
+      </div>
       <ng-template #tpl let-name let-location="location">
         {{ name }}, {{ location }}
       </ng-template>
     </div>
   `
 })
-export class AppComponent implements AfterContentInit {
-  @ViewChild('entry', { read: ViewContainerRef })
-  private entry: ViewContainerRef;
-
-  private component: ComponentRef<AuthFormComponent>;
-
-  @ViewChild('tpl') tpl: TemplateRef<any>;
-
-  constructor(private resolver: ComponentFactoryResolver) {}
-
-  ngAfterContentInit(): void {
-    const authForm = this.resolver.resolveComponentFactory(AuthFormComponent);
-    this.component = this.entry.createComponent(authForm, 0);
-    this.component.instance.title = 'Create User';
-    this.component.instance.submitted.subscribe(console.log);
-
-    // we need to use createEmbededView instead of createComponent
-    this.entry.createEmbeddedView(this.tpl, {
-      $implicit: 'Elie',
-      location: 'Paris - France'
-    });
-  }
+export class AppComponent {
+  ctx = {
+    $implicit: 'Elie',
+    location: 'Paris - France'
+  };
 }
