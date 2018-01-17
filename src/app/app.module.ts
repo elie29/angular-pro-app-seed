@@ -20,6 +20,7 @@ export const ROUTES: Routes = [];
     AuthMessageComponent
   ],
   providers: [Store],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AuthFormComponent]
 })
 export class AppModule {}

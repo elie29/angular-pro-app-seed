@@ -1,40 +1,33 @@
-import { Component } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ComponentFactoryResolver,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 
+import { AuthFormComponent } from '../../components/auth-form.component';
 import { User } from '../../components/user.interface';
 
 @Component({
   selector: 'app-root',
   styleUrls: ['app.component.scss'],
   template: `
-<div>
-  <auth-form (sumitted)="createUser($event)">
-    <h3>Create User</h3>
-    <button type="submit">Join Us</button>
-  </auth-form>
-  <auth-form (sumitted)="loginUser($event)">
-    <h3>Login</h3>
-    <auth-remember (checked)="rememberMe($event)"></auth-remember>
-    <auth-remember (checked)="rememberMe($event)"></auth-remember>
-    <auth-remember (checked)="rememberMe($event)"></auth-remember>
-    <button type="submit">Login</button>
-  </auth-form>
-</div>
+    <div>
+      <div #entry></div>
+    </div>
   `
 })
-export class AppComponent {
-  private remember = false;
+export class AppComponent implements AfterContentInit {
+  @ViewChild('entry', { read: ViewContainerRef })
+  entry: ViewContainerRef;
 
-  constructor() {}
+  constructor(private resolver: ComponentFactoryResolver) {}
 
-  createUser(event: User): void {
-    console.log('createUser ', event);
-  }
-
-  loginUser(event: User): void {
-    console.log('loginUser ', event, this.remember);
-  }
-
-  rememberMe(event: boolean): void {
-    this.remember = event;
+  ngAfterContentInit(): void {
+    const authForm = this.resolver.resolveComponentFactory(AuthFormComponent);
+    const component = this.entry.createComponent(authForm);
+    component.instance.title = 'Create User';
+    component.instance.submitted.subscribe(console.log);
   }
 }
