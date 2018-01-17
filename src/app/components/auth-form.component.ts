@@ -6,7 +6,7 @@ import {
   EventEmitter,
   Output,
   QueryList,
-  ViewChild
+  ViewChildren
 } from '@angular/core';
 
 import { AuthMessageComponent } from './auth-message.component';
@@ -30,6 +30,8 @@ import { User } from './user.interface';
     </label>
     <ng-content select="auth-remember"></ng-content>
     <auth-message [style.display]="showMessage? 'inherit': 'none'"></auth-message>
+    <auth-message [style.display]="showMessage? 'inherit': 'none'"></auth-message>
+    <auth-message [style.display]="showMessage? 'inherit': 'none'"></auth-message>
     <ng-content select="button"></ng-content>
   </form>
 </div>
@@ -38,7 +40,8 @@ import { User } from './user.interface';
 export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   @Output() sumitted = new EventEmitter<User>();
 
-  @ViewChild(AuthMessageComponent) private message: AuthMessageComponent;
+  @ViewChildren(AuthMessageComponent)
+  private message: QueryList<AuthMessageComponent>;
 
   @ContentChildren(AuthRememberComponent)
   private remember: QueryList<AuthRememberComponent>;
@@ -46,18 +49,11 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   showMessage = false;
 
   ngAfterViewInit(): void {
-    /**
-     * will generate a error check because days will be modified after that
-     * auth-message component was injected in auth-form and already initialised
-     * and checked.
-     * This error will be seen only in dev mode
-     * However, here we can add any subscription
-     */
-    // this.message.days = 19;
+    // With setTimeout no more errors are generated
+    setTimeout(() => this.message.forEach(item => (item.days = 30)));
   }
 
   ngAfterContentInit(): void {
-    this.message.days = 17; // No error is generated here because auth-form is not fully initialised yet!!
     if (this.remember) {
       this.remember.forEach(item =>
         item.checked.subscribe((event: boolean) => (this.showMessage = event))
