@@ -2,6 +2,8 @@ import {
   AfterContentInit,
   AfterViewInit,
   Component,
+  ViewChild,
+  ElementRef,
   ContentChildren,
   EventEmitter,
   Output,
@@ -22,7 +24,7 @@ import { User } from './user.interface';
     <ng-content select="h3"></ng-content>
     <label>
       Email address
-      <input type="email" name="email" ngModel />
+      <input type="email" name="email" ngModel #email/>
     </label>
     <label>
       Password
@@ -40,6 +42,8 @@ import { User } from './user.interface';
 export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   @Output() sumitted = new EventEmitter<User>();
 
+  @ViewChild('email') mail: ElementRef;
+
   @ViewChildren(AuthMessageComponent)
   private message: QueryList<AuthMessageComponent>;
 
@@ -51,6 +55,7 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   ngAfterViewInit(): void {
     // With setTimeout no more errors are generated
     setTimeout(() => this.message.forEach(item => (item.days = 30)));
+    console.log(this.mail);
   }
 
   ngAfterContentInit(): void {
