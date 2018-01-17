@@ -14,6 +14,8 @@ import { User } from '../../components/user.interface';
   <auth-form (sumitted)="loginUser($event)">
     <h3>Login</h3>
     <auth-remember (checked)="rememberMe($event)"></auth-remember>
+    <auth-remember (checked)="rememberMe($event)"></auth-remember>
+    <auth-remember (checked)="rememberMe($event)"></auth-remember>
     <button type="submit">Login</button>
   </auth-form>
 </div>
