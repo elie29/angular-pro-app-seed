@@ -13,19 +13,26 @@ import { User } from '../../components/user.interface';
   </auth-form>
   <auth-form (sumitted)="loginUser($event)">
     <h3>Login</h3>
+    <auth-remember (checked)="rememberMe($event)"></auth-remember>
     <button type="submit">Login</button>
   </auth-form>
 </div>
   `
 })
 export class AppComponent {
+  private remember = false;
+
   constructor() {}
 
   createUser(event: User): void {
-    console.log(event);
+    console.log('createUser ', event);
   }
 
   loginUser(event: User): void {
-    console.log(event);
+    console.log('loginUser ', event, this.remember);
+  }
+
+  rememberMe(event: boolean): void {
+    this.remember = event;
   }
 }
