@@ -1,14 +1,29 @@
 import { Component } from '@angular/core';
 
+import { User } from '../../components/user.interface';
+
 @Component({
   selector: 'app-root',
   styleUrls: ['app.component.scss'],
   template: `
-    <div>
-      Hello Ultimate Angular!
-    </div>
+<div>
+  <auth-form (sumitted)="createUser($event)">
+    <h3>Create User</h3>
+  </auth-form>
+  <auth-form (sumitted)="loginUser($event)">
+    <h3>Login</h3>
+  </auth-form>
+</div>
   `
 })
 export class AppComponent {
   constructor() {}
+
+  createUser(event: User): void {
+    console.log(event);
+  }
+
+  loginUser(event: User): void {
+    console.log(event);
+  }
 }

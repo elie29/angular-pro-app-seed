@@ -1,32 +1,18 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
 import { Store } from 'store';
 
-// feature modules
-
-// containers
+import { AuthFormComponent } from './components/auth-form.component';
 import { AppComponent } from './containers/app/app.component';
 
-// components
-
-// routes
 export const ROUTES: Routes = [];
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(ROUTES)
-  ],
-  declarations: [
-    AppComponent
-  ],
-  providers: [
-    Store
-  ],
-  bootstrap: [
-    AppComponent
-  ]
+  imports: [BrowserModule, FormsModule, RouterModule.forRoot(ROUTES)],
+  declarations: [AppComponent, AuthFormComponent],
+  providers: [Store],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
