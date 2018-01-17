@@ -13,8 +13,9 @@ import { AuthFormComponent } from '../../components/auth-form.component';
   selector: 'app-root',
   styleUrls: ['app.component.scss'],
   template: `
-    <div>
-      <div><button (click)="destroy()">Destroy</button></div>
+    <div [style.display]="'block'">
+      <button (click)="destroy()">Destroy</button>
+      <button (click)="move()">Move</button>
       <div #entry></div>
     </div>
   `
@@ -29,12 +30,17 @@ export class AppComponent implements AfterContentInit {
 
   ngAfterContentInit(): void {
     const authForm = this.resolver.resolveComponentFactory(AuthFormComponent);
-    this.component = this.entry.createComponent(authForm);
+    this.entry.createComponent(authForm);
+    this.component = this.entry.createComponent(authForm, 0);
     this.component.instance.title = 'Create User';
     this.component.instance.submitted.subscribe(console.log);
   }
 
   destroy(): void {
     this.component.destroy();
+  }
+
+  move(): void {
+    this.entry.move(this.component.hostView, 1);
   }
 }
