@@ -6,11 +6,17 @@ import { Store } from 'store';
 
 import { CreditCardDirective } from './components/credit-card.directive';
 import { AppComponent } from './containers/app/app.component';
+import { StockInventoryModule } from './stock-inventory/stock-inventory.module';
 
 export const ROUTES: Routes = [];
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, RouterModule.forRoot(ROUTES)],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    RouterModule.forRoot(ROUTES),
+    StockInventoryModule
+  ],
   declarations: [AppComponent, CreditCardDirective],
   providers: [Store],
   bootstrap: [AppComponent]

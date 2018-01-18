@@ -5,8 +5,7 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
   template: `
     <div>
-      <label>Credit Card Number</label>
-      <input type="text" placeholder="Enter 16-digit credit card" credit-card/>
+      <stock-inventory></stock-inventory>
     </div>
   `
 })
