@@ -30,7 +30,9 @@
       left: 10px;
     }
   }
-
+  & input {
+    margin-left: 5px;
+  }
   & > div {
     display: flex;
     align-items: center;

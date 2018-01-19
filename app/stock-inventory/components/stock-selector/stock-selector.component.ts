@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { Product } from '../../models/product.interface';
+import { Product, Item } from '../../models/product.interface';
 
 @Component({
   selector: 'stock-selector',
@@ -17,13 +17,13 @@ import { Product } from '../../models/product.interface';
             {{ product.name }}
           </option>
         </select>
-        <input 
+        <input
           type="number"
           step="10"
           min="10"
           max="1000"
           formControlName="quantity">
-        <button 
+        <button
           type="button"
           (click)="onAdd()">
           Add stock
@@ -33,14 +33,11 @@ import { Product } from '../../models/product.interface';
   `
 })
 export class StockSelectorComponent {
-  @Input()
-  parent: FormGroup;
-  
-  @Input()
-  products: Product[];
+  @Input() parent: FormGroup;
 
-  @Output()
-  added = new EventEmitter<any>();
+  @Input() products: Product[];
+
+  @Output() added = new EventEmitter<Item>();
 
   onAdd() {
     this.added.emit(this.parent.get('selector').value);
