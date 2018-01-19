@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { Product } from '../../models/product.interface';
 
@@ -38,7 +38,7 @@ import { Product } from '../../models/product.interface';
   </div>
   `
 })
-export class StockInventoryComponent {
+export class StockInventoryComponent implements OnInit {
   products: Product[] = [
     { id: 1, price: 2800, name: 'MacBook Pro' },
     { id: 2, price: 50, name: 'USB-C Adaptor' },
@@ -47,14 +47,20 @@ export class StockInventoryComponent {
     { id: 5, price: 600, name: 'Apple Watch' }
   ];
 
-  form = new FormGroup({
-    store: new FormGroup({
-      branch: new FormControl(''),
-      code: new FormControl('')
-    }),
-    selector: this.createStock({}),
-    stock: new FormArray([])
-  });
+  form: FormGroup;
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      store: this.fb.group({
+        branch: '',
+        code: ''
+      }),
+      selector: this.createStock({}),
+      stock: this.fb.array([])
+    });
+  }
 
   onSubmit(): void {
     console.log(this.form.value);
@@ -75,9 +81,9 @@ export class StockInventoryComponent {
   }
 
   private createStock(stock: any): FormGroup {
-    return new FormGroup({
-      product_id: new FormControl(+stock.product_id || ''),
-      quantity: new FormControl(+stock.quantity || 10)
+    return this.fb.group({
+      product_id: +stock.product_id || '',
+      quantity: +stock.quantity || 10
     });
   }
 }
