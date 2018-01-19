@@ -1,7 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { Product, Item } from '../../models/product.interface';
+import { Item, Product } from '../../models/product.interface';
 
 @Component({
   selector: 'stock-selector',
@@ -40,6 +40,15 @@ export class StockSelectorComponent {
   @Output() added = new EventEmitter<Item>();
 
   onAdd() {
-    this.added.emit(this.parent.get('selector').value);
+    const control = this.parent.get('selector') as FormGroup;
+    if (control.value.product_id) {
+      this.added.emit(control.value);
+      control.reset({
+        product_id: '',
+        quantity: 10
+      });
+    } else {
+      alert('Please choose a stock');
+    }
   }
 }
