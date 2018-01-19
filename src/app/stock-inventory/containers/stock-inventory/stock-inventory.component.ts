@@ -21,8 +21,10 @@ import { Product } from '../../models/product.interface';
       </stock-selector>
 
       <stock-products
-        [parent]="form">
+        [parent]="form"
+        (removed)="removeStock($event)">
       </stock-products>
+
       <hr />
       <div class="stock-inventory__buttons">
         <button
@@ -64,6 +66,12 @@ export class StockInventoryComponent {
     }
     const stock = this.createStock(event);
     (this.form.get('stock') as FormArray).push(stock);
+  }
+
+  // data is not needed just for explanation purpose
+  removeStock({ data, index }: { data: FormGroup; index: number }): void {
+    const control = this.form.get('stock') as FormArray;
+    control.removeAt(index);
   }
 
   private createStock(stock: any): FormGroup {
