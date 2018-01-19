@@ -28,6 +28,10 @@ import { StockInventoryService } from '../../services/stock-inventory.service';
           (removed)="removeStock($event)">
         </stock-products>
 
+        <div class="stock-inventory__price">
+          Total: {{ total | currency }}
+        </div>
+
         <div class="stock-inventory__buttons">
           <button
             type="submit"
@@ -45,7 +49,7 @@ import { StockInventoryService } from '../../services/stock-inventory.service';
 export class StockInventoryComponent implements OnInit {
   products: Product[];
   productsMap: Map<number, Product>;
-
+  total: number;
   form: FormGroup;
 
   constructor(
@@ -54,30 +58,17 @@ export class StockInventoryComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.form = this.fb.group({
-      store: this.fb.group({
-        branch: '',
-        code: ''
-      }),
-      selector: this.createStock(),
-      stock: this.fb.array([])
-    });
+    this.buildForm();
 
-    const cart$ = this.stockService.getCartItems();
-    const products$ = this.stockService.getProducts();
+    // Listen to stock changes
+    this.form
+      .get('stock')
+      // Use calculateTotal as callback
+      // .valueChanges.subscribe(this.calculateTotal.bind(this));
+      .valueChanges.subscribe(data => this.calculateTotal(data));
 
-    // same as zip but emits the last values. Better for request as promiseAll
-    forkJoin(cart$, products$).subscribe(
-      ([cart, products]: [Item[], Product[]]) => {
-        const productsMap = products.map<[number, Product]>(item => [
-          item.id,
-          item
-        ]);
-        this.productsMap = new Map(productsMap);
-        this.products = products;
-        cart.forEach(item => this.addStock(item));
-      }
-    );
+    // Get data from the server
+    this.retrieveData();
   }
 
   createStock(stock: Item = {}): FormGroup {
@@ -99,5 +90,40 @@ export class StockInventoryComponent implements OnInit {
 
   onSubmit() {
     console.log('Submit:', this.form.value);
+  }
+
+  private buildForm(): void {
+    this.form = this.fb.group({
+      store: this.fb.group({
+        branch: '',
+        code: ''
+      }),
+      selector: this.createStock(),
+      stock: this.fb.array([])
+    });
+  }
+
+  private retrieveData(): void {
+    const cart$ = this.stockService.getCartItems();
+    const products$ = this.stockService.getProducts();
+
+    // same as zip but emits the last values. Better for request as promiseAll
+    forkJoin(cart$, products$).subscribe(
+      ([cart, products]: [Item[], Product[]]) => {
+        const productsMap = products.map<[number, Product]>(item => [
+          item.id,
+          item
+        ]);
+        this.productsMap = new Map(productsMap);
+        this.products = products;
+        cart.forEach(item => this.addStock(item));
+      }
+    );
+  }
+
+  private calculateTotal(value: Item[]) {
+    this.total = value.reduce((prev: number, next: Item) => {
+      return prev + next.quantity * this.productsMap.get(next.product_id).price;
+    }, 0);
   }
 }

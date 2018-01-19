@@ -1,1 +1,5 @@
-.stock-inventory {}
+.stock-inventory {
+  &__price {
+    flex: 1 0;
+  }
+}
