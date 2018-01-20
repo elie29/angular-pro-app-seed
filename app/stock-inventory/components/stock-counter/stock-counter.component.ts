@@ -13,9 +13,15 @@ const COUNTER_CONTROL_ACCESSOR = {
   providers: [COUNTER_CONTROL_ACCESSOR],
   styleUrls: ['stock-counter.component.scss'],
   template: `
-    <div class="stock-counter">
+    <div class="stock-counter" [class.focused]="focus">
       <div>
-        <div>
+        <!-- To focus on the div we add tabIndex -->
+        <div
+          tabindex="0"
+          (keydown)="onKeyDown($event)"
+          (focus)="onFocus($event)"
+          (blur)="onBlur($event)"
+          >
           <p>{{ value }}</p>
           <div>
             <button
@@ -42,6 +48,7 @@ export class StockCounterComponent implements ControlValueAccessor {
   @Input() max = 1000;
 
   value = this.min;
+  focus = false;
 
   private onTouch: Function;
   private onChange: Function;
@@ -56,6 +63,34 @@ export class StockCounterComponent implements ControlValueAccessor {
 
   registerOnTouched(fn): void {
     this.onTouch = fn;
+  }
+
+  onKeyDown(event: KeyboardEvent): void {
+    const handlers = {
+      ArrowDown: this.decrement.bind(this),
+      ArrowUp: () => this.increment()
+    };
+
+    if (handlers[event.code]) {
+      handlers[event.code]();
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this.onTouch();
+  }
+
+  onFocus(event: FocusEvent): void {
+    this.focus = true;
+    event.preventDefault();
+    event.stopPropagation();
+    this.onTouch();
+  }
+
+  onBlur(event: FocusEvent): void {
+    this.focus = false;
+    event.preventDefault();
+    event.stopPropagation();
+    this.onTouch();
   }
 
   increment() {
