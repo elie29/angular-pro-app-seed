@@ -25,12 +25,12 @@ import { Item, Product } from '../../models/product.interface';
         </stock-counter>
         <button
           type="button"
-          [disabled]="required || stockExists"
+          [disabled]="notSelected || stockExists"
           (click)="onAdd()">
           Add stock
         </button>
         <div class="stock-selector__error" *ngIf="stockExists">
-          Product exists in the stock
+          Product already exists in the stock
         </div>
       </div>
     </div>
@@ -50,11 +50,13 @@ export class StockSelectorComponent {
     );
   }
 
-  get required(): boolean {
+  get notSelected(): boolean {
     return this.parent.get('selector.product_id').value === '';
   }
 
   onAdd() {
+    if (this.notSelected) return;
+
     const control = this.parent.get('selector') as FormGroup;
     this.added.emit(control.value);
     control.reset({
