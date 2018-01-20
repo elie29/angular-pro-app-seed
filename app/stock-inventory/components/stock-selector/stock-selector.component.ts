@@ -25,9 +25,13 @@ import { Item, Product } from '../../models/product.interface';
         </stock-counter>
         <button
           type="button"
+          [disabled]="required || stockExists"
           (click)="onAdd()">
           Add stock
         </button>
+        <div class="stock-selector__error" *ngIf="stockExists">
+          Product exists in the stock
+        </div>
       </div>
     </div>
   `
@@ -39,16 +43,23 @@ export class StockSelectorComponent {
 
   @Output() added = new EventEmitter<Item>();
 
+  get stockExists(): boolean {
+    return (
+      this.parent.get('selector.product_id').dirty &&
+      this.parent.hasError('stockExists')
+    );
+  }
+
+  get required(): boolean {
+    return this.parent.get('selector.product_id').value === '';
+  }
+
   onAdd() {
     const control = this.parent.get('selector') as FormGroup;
-    if (control.value.product_id) {
-      this.added.emit(control.value);
-      control.reset({
-        product_id: '',
-        quantity: 10
-      });
-    } else {
-      alert('Please choose a stock');
-    }
+    this.added.emit(control.value);
+    control.reset({
+      product_id: '',
+      quantity: 10
+    });
   }
 }
