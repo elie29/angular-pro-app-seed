@@ -97,7 +97,11 @@ export class StockInventoryComponent implements OnInit {
     this.form = this.fb.group(
       {
         store: this.fb.group({
-          branch: ['', [Validators.required, StockValidators.checkBranch]],
+          branch: [
+            '',
+            [Validators.required, StockValidators.checkBranch],
+            [StockValidators.validateBranch(this.stockService)]
+          ],
           code: ['', Validators.required]
         }),
         selector: this.createStock(),

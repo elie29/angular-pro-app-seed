@@ -1,4 +1,8 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators/map';
+
+import { StockInventoryService } from '../../services/stock-inventory.service';
 
 export class StockValidators {
   static checkBranch(control: AbstractControl): ValidationErrors | null {
@@ -16,5 +20,13 @@ export class StockValidators {
       item => item.product_id === +selector.value.product_id
     );
     return exists ? { stockExists: true } : null;
+  }
+
+  static validateBranch(stockService: StockInventoryService): Function {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return stockService
+        .checkBranchId(control.value)
+        .pipe(map(res => (res ? null : { unkownBranch: true })));
+    };
   }
 }

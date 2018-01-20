@@ -17,6 +17,9 @@ import { FormGroup } from '@angular/forms';
         <div class="error" *ngIf="invalid">
           Branch ID error: 1 letter followed by 3 numbers
         </div>
+        <div class="error" *ngIf="unkown">
+        Branch ID does not exist
+      </div>
         <input
           type="text"
           placeholder="Manager Code"
@@ -43,5 +46,10 @@ export class StockBranchComponent {
       control.hasError('invalidBranch') &&
       control.dirty
     );
+  }
+
+  get unkown(): boolean {
+    const control = this.parent.get(`store.branch`);
+    return !this.invalid && control.hasError('unkownBranch') && control.dirty;
   }
 }
