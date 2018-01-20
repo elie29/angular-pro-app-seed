@@ -49,7 +49,8 @@ export class StockBranchComponent {
   }
 
   get unkown(): boolean {
+    // async is called when all sync are valid :)
     const control = this.parent.get(`store.branch`);
-    return !this.invalid && control.hasError('unkownBranch') && control.dirty;
+    return control.hasError('unkownBranch') && control.dirty;
   }
 }
