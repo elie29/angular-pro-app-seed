@@ -68,7 +68,7 @@ export class StockCounterComponent implements ControlValueAccessor {
   onKeyDown(event: KeyboardEvent): void {
     const handlers = {
       ArrowDown: this.decrement.bind(this),
-      ArrowUp: () => this.increment()
+      ArrowUp: () => this.increment() // no need to bind this with arrow function
     };
 
     if (handlers[event.code]) {
