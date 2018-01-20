@@ -7,19 +7,29 @@ import { FormGroup } from '@angular/forms';
   template: `
     <div [formGroup]="parent">
       <div formGroupName="store">
-        <input 
-          type="text" 
+        <input
+          type="text"
           placeholder="Branch ID"
           formControlName="branch">
-        <input 
-          type="text" 
+        <div class="error" *ngIf="required('branch')">
+          Branch ID is required
+        </div>
+        <input
+          type="text"
           placeholder="Manager Code"
           formControlName="code">
+        <div class="error" *ngIf="required('code')">
+          Manager code is required
+        </div>
       </div>
     </div>
   `
 })
 export class StockBranchComponent {
-  @Input()
-  parent: FormGroup;
+  @Input() parent: FormGroup;
+
+  required(name: string): boolean {
+    const control = this.parent.get(`store.${name}`);
+    return control.hasError('required') && control.touched;
+  }
 }
