@@ -13,12 +13,12 @@ import { filter } from 'rxjs/operators/filter';
       <div class="app__content">
         <nav>
           <a
-            routerLink="folder/inbox"
+            [routerLink]="[{ outlets: { primary: 'folder/inbox', pane: null } }]"
             routerLinkActive="active">
             Inbox
           </a>
           <a
-            routerLink="folder/trash"
+            [routerLink]="[{ outlets: { primary: 'folder/trash', pane: null } }]"
             routerLinkActive="active">
             Trash
           </a>

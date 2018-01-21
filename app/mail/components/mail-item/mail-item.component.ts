@@ -6,7 +6,11 @@ import { Mail } from '../../models/mail.interface';
   selector: 'mail-item',
   styleUrls: ['mail-item.component.scss'],
   template: `
-    <a class="mail-item">
+    <a
+      class="mail-item"
+      [routerLink]="['', { outlets: { pane: ['messages', message.id] } }]"
+      routerLinkActive="active"
+      >
       <h3>
         {{ message.from }}
         <span>{{ message.timestamp | date:'shortTime' }}</span>
@@ -16,6 +20,5 @@ import { Mail } from '../../models/mail.interface';
   `
 })
 export class MailItemComponent {
-  @Input()
-  message: Mail;
+  @Input() message: Mail;
 }
