@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators/filter';
 
 @Component({
   selector: 'app-root',
@@ -29,5 +30,11 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   constructor(private router: Router) {}
-  ngOnInit() {}
+  ngOnInit() {
+    // This component contains the router-outlet inside mail-app
+    // so subscription here is useful
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(console.log);
+  }
 }
