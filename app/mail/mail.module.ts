@@ -5,9 +5,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { MailAppComponent } from './components/mail-app/mail-app.component';
 import { MailItemComponent } from './components/mail-item/mail-item.component';
 import { MailViewComponent } from './components/mail-view/mail-view.component';
+import { MailViewResolve } from './components/mail-view/mail-view.resolve';
 import { MailFolderComponent } from './containers/mail-folder/mail-folder.component';
 import { MailFolderResolve } from './containers/mail-folder/mail-folder.resolve';
-import { MailServcie } from './services/mail.service';
+import { MailService } from './services/mail.service';
 
 export const ROUTES: Routes = [
   {
@@ -20,7 +21,10 @@ export const ROUTES: Routes = [
   {
     path: 'messages/:id',
     component: MailViewComponent,
-    outlet: 'pane'
+    outlet: 'pane',
+    resolve: {
+      message: MailViewResolve // should be in providers
+    }
   }
 ];
 
@@ -32,7 +36,7 @@ export const ROUTES: Routes = [
     MailItemComponent,
     MailViewComponent
   ],
-  providers: [MailServcie, MailFolderResolve],
+  providers: [MailService, MailFolderResolve, MailViewResolve],
   exports: [MailAppComponent]
 })
 export class MailModule {}
