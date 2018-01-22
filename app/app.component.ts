@@ -13,17 +13,23 @@ import { filter } from 'rxjs/operators/filter';
       <div class="app__content">
         <nav>
           <a
-            [routerLink]="[{ outlets: { primary: 'folder/inbox', pane: null } }]"
+            [routerLink]="['/mail', { outlets: { primary: 'folder/inbox', pane: null } }]"
             routerLinkActive="active">
             Inbox
           </a>
           <a
-            [routerLink]="[{ outlets: { primary: 'folder/trash', pane: null } }]"
+            [routerLink]="['/mail', { outlets: { primary: 'folder/trash', pane: null } }]"
             routerLinkActive="active">
             Trash
           </a>
+          <a
+            [routerLink]="['/dashboard']"
+            routerLinkActive="active">
+            Dashboard
+          </a>
         </nav>
-        <mail-app></mail-app>
+        <!-- Here we inject MailAppComponent -->
+        <router-outlet></router-outlet>
       </div>
     </div>
   `

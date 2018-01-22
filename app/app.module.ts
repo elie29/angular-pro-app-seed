@@ -5,8 +5,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { MailModule } from './mail/mail.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
-export const ROUTES: Routes = [{ path: '**', redirectTo: 'folder/inbox' }];
+export const ROUTES: Routes = [
+  {
+    path: 'dashboard',
+    loadChildren: () => DashboardModule
+  },
+  { path: '**', redirectTo: '/mail/folder/inbox', pathMatch: 'full' }
+];
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +21,7 @@ export const ROUTES: Routes = [{ path: '**', redirectTo: 'folder/inbox' }];
     BrowserModule,
     HttpClientModule,
     MailModule,
+    DashboardModule,
     RouterModule.forRoot(ROUTES, { enableTracing: false })
   ],
   bootstrap: [AppComponent]

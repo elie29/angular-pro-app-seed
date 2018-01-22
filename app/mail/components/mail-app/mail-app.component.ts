@@ -5,13 +5,11 @@ import { Component } from '@angular/core';
   styleUrls: ['mail-app.component.scss'],
   template: `
     <div class="mail">
-      <router-outlet
-        (activate)="onActivate($event)"
-        (deactivate)="onDeactivate($event)"
-      >
-      </router-outlet>
+      <!-- Here we inject MailFolderComponent -->
+      <router-outlet></router-outlet>
     </div>
     <div class="mail">
+      <!-- Here we inject MailViewComponent -->
       <router-outlet name="pane"></router-outlet>
     <div>
   `

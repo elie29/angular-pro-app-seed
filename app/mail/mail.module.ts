@@ -12,19 +12,25 @@ import { MailService } from './services/mail.service';
 
 export const ROUTES: Routes = [
   {
-    path: 'folder/:name',
-    component: MailFolderComponent,
-    resolve: {
-      messages: MailFolderResolve // should be in providers
-    }
-  },
-  {
-    path: 'messages/:id',
-    component: MailViewComponent,
-    outlet: 'pane',
-    resolve: {
-      message: MailViewResolve // should be in providers
-    }
+    path: 'mail',
+    component: MailAppComponent,
+    children: [
+      {
+        path: 'folder/:name',
+        component: MailFolderComponent,
+        resolve: {
+          messages: MailFolderResolve
+        }
+      },
+      {
+        path: 'message/:id',
+        component: MailViewComponent,
+        outlet: 'pane',
+        resolve: {
+          message: MailViewResolve
+        }
+      }
+    ]
   }
 ];
 
