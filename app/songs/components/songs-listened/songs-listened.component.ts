@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { filter } from 'rxjs/operators/filter';
 import { map } from 'rxjs/operators/map';
@@ -17,7 +17,8 @@ import { SongsService, Song } from '../../services/songs.service';
       Listened
     </songs-list>
   </div>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SongsListenedComponent implements OnInit {
   listened$: Observable<Song[]>;

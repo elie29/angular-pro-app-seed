@@ -1,4 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 
 import { Song } from '../../services/songs.service';
 
@@ -27,7 +33,8 @@ import { Song } from '../../services/songs.service';
         </li>
       </ul>
     </div>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SongsListComponent {
   @Input() list: Song[];

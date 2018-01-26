@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -16,7 +21,8 @@ import { Song, SongsService } from '../../services/songs.service';
       Played
     </songs-list>
   </div>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SongsPlaylistComponent implements OnInit, OnDestroy {
   playlist$: Observable<Song[]>;

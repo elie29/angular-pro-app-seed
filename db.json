@@ -4,7 +4,7 @@
       "id": 1,
       "artist": "Oasis",
       "track": "Half The World Away",
-      "listened": false,
+      "listened": true,
       "favourite": true
     },
     {
@@ -12,7 +12,7 @@
       "artist": "Pink Floyd",
       "track": "Wish You Were Here",
       "listened": true,
-      "favourite": false
+      "favourite": true
     },
     {
       "id": 3,
@@ -40,21 +40,21 @@
       "artist": "Sia",
       "track": "Cheap Thrills",
       "listened": true,
-      "favourite": true
+      "favourite": false
     },
     {
       "id": 7,
       "artist": "Birdy",
       "track": "Wild Horses",
-      "listened": false,
-      "favourite": true
+      "listened": true,
+      "favourite": false
     },
     {
       "id": 8,
       "artist": "Stereophonics",
       "track": "Local Boy In The Photograph",
       "listened": false,
-      "favourite": false
+      "favourite": true
     }
   ]
 }
