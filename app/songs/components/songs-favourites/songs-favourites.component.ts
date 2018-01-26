@@ -1,33 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Observable } from 'rxjs/Observable';
-
-import { SongsService } from '../../services/songs.service';
+import { filter } from 'rxjs/operators/filter';
+import { map } from 'rxjs/operators/map';
 
 import { Store } from '../../../store';
+import { Song, SongsService } from '../../services/songs.service';
 
 @Component({
   selector: 'songs-favourites',
   template: `
-    <div class="songs">
-      <div *ngFor="let item of favourites$ | async">
-        {{ item.artist }}
-        {{ item.track }}
-      </div>
-    </div>
+  <div class="songs">
+    <songs-list
+      [list]="favourites$ | async"
+      >
+      Favourites
+    </songs-list>
+  </div>
   `
 })
 export class SongsFavouritesComponent implements OnInit {
+  favourites$: Observable<Song[]>;
 
-  favourites$: Observable<any[]>;
-
-  constructor(
-    private store: Store,
-    private songsService: SongsService
-  ) {}
+  constructor(private store: Store, private songsService: SongsService) {}
 
   ngOnInit() {
-    this.favourites$ = this.store.select('playlist');
+    this.favourites$ = this.store.select('playlist').pipe(
+      filter(Boolean),
+      // Retrieve only favourite items
+      map(playlist => playlist.filter(track => track.favourite))
+    );
   }
-
 }

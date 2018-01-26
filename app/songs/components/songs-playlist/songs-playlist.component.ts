@@ -1,32 +1,27 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { SongsService } from '../../services/songs.service';
-
 import { Store } from '../../../store';
+import { Song, SongsService } from '../../services/songs.service';
 
 @Component({
   selector: 'songs-playlist',
   template: `
-    <div class="songs">
-      <div *ngFor="let item of playlist$ | async">
-        {{ item.artist }}
-        {{ item.track }}
-      </div>
-    </div>
+  <div class="songs">
+    <songs-list
+      [list]="playlist$ | async"
+      >
+      Played
+    </songs-list>
+  </div>
   `
 })
 export class SongsPlaylistComponent implements OnInit, OnDestroy {
-
-  playlist$: Observable<any[]>;
+  playlist$: Observable<Song[]>;
   subscription: Subscription;
 
-  constructor(
-    private store: Store,
-    private songsService: SongsService
-  ) {}
+  constructor(private store: Store, private songsService: SongsService) {}
 
   ngOnInit() {
     this.playlist$ = this.store.select('playlist');
@@ -36,5 +31,4 @@ export class SongsPlaylistComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
 }

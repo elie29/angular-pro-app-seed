@@ -1,26 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Observable } from 'rxjs/Observable';
 import { filter } from 'rxjs/operators/filter';
 import { map } from 'rxjs/operators/map';
 
-import { SongsService } from '../../services/songs.service';
-
 import { Store } from '../../../store';
+import { SongsService, Song } from '../../services/songs.service';
 
 @Component({
   selector: 'songs-listened',
   template: `
-    <div class="songs">
-      <div *ngFor="let item of listened$ | async">
-        {{ item.artist }}
-        {{ item.track }}
-      </div>
-    </div>
+  <div class="songs">
+    <songs-list
+      [list]="listened$ | async"
+      >
+      Listened
+    </songs-list>
+  </div>
   `
 })
 export class SongsListenedComponent implements OnInit {
-  listened$: Observable<any[]>;
+  listened$: Observable<Song[]>;
 
   constructor(private store: Store, private songsService: SongsService) {}
 

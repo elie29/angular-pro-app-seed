@@ -72,8 +72,6 @@ app-root {
 app-root > div {
   display: flex;
   justify-content: center;
-  font-size: 44px;
-  color: white;
 }
 
 songs-playlist,

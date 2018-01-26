@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Store } from '../../store';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
+import { tap } from 'rxjs/operators/tap';
+
+export interface Song {
+  id: number;
+  name: string;
+  listened: boolean;
+  favourite: boolean;
+}
 
 @Injectable()
 export class SongsService {
-
   getPlaylist$ = this.http
-    .get('/api/playlist')
-    .map(res => res.json())
-    .do(next => this.store.set('playlist', next));
+    .get<Song[]>('/api/playlist')
+    .pipe(tap(next => this.store.set('playlist', next)));
 
-  constructor(
-    private http: Http,
-    private store: Store
-  ) {}
-
+  constructor(private http: HttpClient, private store: Store) {}
 }
