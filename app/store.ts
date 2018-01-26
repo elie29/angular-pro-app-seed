@@ -6,7 +6,7 @@ import { pluck } from 'rxjs/operators/pluck';
 import { State } from './state';
 
 const state: State = {
-  playlist: undefined
+  playlist: []
 };
 
 export class Store {
@@ -14,7 +14,7 @@ export class Store {
   // asObservable is to make the store only Observable and hide the fact that is a subject
   private store = this.subject.asObservable().pipe(distinctUntilChanged());
 
-  get value() {
+  get value(): State {
     return this.subject.value;
   }
 
@@ -22,10 +22,10 @@ export class Store {
     return this.store.pipe(pluck(name));
   }
 
-  set(name: string, state: any) {
+  set(name: string, value: any) {
     this.subject.next({
       ...this.value,
-      [name]: state
+      [name]: value
     });
   }
 }

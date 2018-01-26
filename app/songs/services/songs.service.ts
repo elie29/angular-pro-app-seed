@@ -19,4 +19,19 @@ export class SongsService {
     .pipe(tap(next => this.store.set('playlist', next)));
 
   constructor(private http: HttpClient, private store: Store) {}
+
+  toggle(event: { track: Song }): void {
+    this.http
+      .put<Song>(`/api/playlist/${event.track.id}`, event.track)
+      .subscribe(track => {
+        const value = this.store.value;
+        const playlist = value.playlist.map(song => {
+          if (song.id === event.track.id) {
+            return track; // the updated one
+          }
+          return song;
+        });
+        this.store.set('playlist', playlist);
+      });
+  }
 }

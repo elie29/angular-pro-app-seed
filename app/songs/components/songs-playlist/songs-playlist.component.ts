@@ -11,6 +11,7 @@ import { Song, SongsService } from '../../services/songs.service';
   <div class="songs">
     <songs-list
       [list]="playlist$ | async"
+      (toggle)="onToggle($event)"
       >
       Played
     </songs-list>
@@ -30,5 +31,9 @@ export class SongsPlaylistComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  onToggle(event): void {
+    this.songsService.toggle(event);
   }
 }

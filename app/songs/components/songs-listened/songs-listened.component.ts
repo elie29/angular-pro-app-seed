@@ -12,6 +12,7 @@ import { SongsService, Song } from '../../services/songs.service';
   <div class="songs">
     <songs-list
       [list]="listened$ | async"
+      (toggle)="onToggle($event)"
       >
       Listened
     </songs-list>
@@ -31,5 +32,9 @@ export class SongsListenedComponent implements OnInit {
       // Retrieve only listened items
       map(playlist => playlist.filter(track => track.listened))
     );
+  }
+
+  onToggle(event): void {
+    this.songsService.toggle(event);
   }
 }
