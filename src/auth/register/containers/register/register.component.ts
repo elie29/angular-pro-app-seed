@@ -4,8 +4,11 @@ import { Component } from '@angular/core';
   selector: 'register',
   template: `
     <div>
-      Register
-      <auth-form></auth-form>
+      <auth-form>
+        <h1>Register</h1>
+        <a routerLink="/auth/login">Already have an account?</a>
+        <button type="submit">Create an account</button>
+      </auth-form>
     </div>
   `
 })

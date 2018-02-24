@@ -5,8 +5,8 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
   template: `
     <div>
-      Hello Ultimate Angular!
       <div class="wrapper">
+        <h1>Hello Ultimate Angular!</h1>
         <router-outlet></router-outlet>
       </div>
     </div>
