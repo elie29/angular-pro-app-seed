@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { Store } from 'store';
 
 // feature modules
+import { AuthModule } from '../auth/auth.module';
 
 // containers
 import { AppComponent } from './containers/app/app.component';
@@ -15,29 +16,20 @@ import { AppComponent } from './containers/app/app.component';
 export const ROUTES: Routes = [];
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(ROUTES)
-  ],
-  declarations: [
-    AppComponent
-  ],
-  providers: [
-    Store
-  ],
-  bootstrap: [
-    AppComponent
-  ]
+  imports: [BrowserModule, RouterModule.forRoot(ROUTES), AuthModule],
+  declarations: [AppComponent],
+  providers: [Store],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
 
 /*
 var config = {
-  apiKey: "AIzaSyCXz7GrHLBs-xlsCrr185iG4v4UrNreq2Y",
-  authDomain: "fitness-app-e668a.firebaseapp.com",
-  databaseURL: "https://fitness-app-e668a.firebaseio.com",
-  projectId: "fitness-app-e668a",
-  storageBucket: "fitness-app-e668a.appspot.com",
-  messagingSenderId: "1014564696462"
+  apiKey: "AIzaSyAiMwzt3Jmo8V2Ds-hZkwZzlI2HdezmMxs",
+  authDomain: "fitness-app-4c13a.firebaseapp.com",
+  databaseURL: "https://fitness-app-4c13a.firebaseio.com",
+  projectId: "fitness-app-4c13a",
+  storageBucket: "fitness-app-4c13a.appspot.com",
+  messagingSenderId: "534483643011"
 };
 */

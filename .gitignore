@@ -1,6 +1,7 @@
 # Project
 .idea
 .vscode
+.awcache
 
 # Node
 node_modules
