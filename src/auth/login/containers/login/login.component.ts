@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-login',
+  selector: 'login',
   template: `
-    <h1>Login</h1>
+    <div>
+      Login
+      <auth-form></auth-form>
+    </div>
   `
 })
 export class LoginComponent {}

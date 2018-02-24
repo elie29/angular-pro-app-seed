@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-register',
+  selector: 'register',
   template: `
-    <h1>Register</h1>
+    <div>
+      Register
+      <auth-form></auth-form>
+    </div>
   `
 })
 export class RegisterComponent {}

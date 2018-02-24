@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'auth-form',
+  styleUrls: ['auth-form.component.scss'],
   template: `
-    <h2>Auth form</h2>
+    <div>Auth form</div>
   `
 })
-export class AuthForm {}
+export class AuthFormComponent {}
