@@ -6,7 +6,7 @@ import {
   Output
 } from '@angular/core';
 
-import { User } from '../../../auth/shared/services';
+import { User } from 'auth/shared/services';
 
 @Component({
   selector: 'app-header',

@@ -4,7 +4,7 @@ import { Promise } from 'firebase/app';
 import { tap } from 'rxjs/operators/tap';
 import { Store } from 'store';
 
-import { User } from '../user/user.interface';
+import { User } from 'auth/shared/services';
 
 @Injectable()
 export class AuthService {

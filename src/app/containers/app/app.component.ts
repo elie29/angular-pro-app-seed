@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators/takeUntil';
 import { Subject } from 'rxjs/Subject';
 import { Store } from 'store';
 
-import { AuthService, User } from '../../../auth/shared/services';
+import { AuthService, User } from 'auth/shared/services';
 
 @Component({
   selector: 'app-root',

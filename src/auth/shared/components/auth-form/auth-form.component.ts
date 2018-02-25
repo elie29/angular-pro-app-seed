@@ -29,6 +29,6 @@ export class AuthFormComponent {
 
   get emailInvalid(): boolean {
     const control = this.form.get('email');
-    return control.invalid && (control.dirty || control.touched);
+    return control.invalid && control.touched; // no need to check while typing
   }
 }
