@@ -38,7 +38,9 @@ const CONFIG: FirebaseAppConfig = {
     AngularFireModule.initializeApp(CONFIG),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    SharedModule.forRoot() // Same instance of AuthService is used among login and register
+    SharedModule.forRoot()
   ]
 })
+// including AuthModule on AppModule will includes all above imports
+// so all instances in SharedModule providers will be Shared amon App
 export class AuthModule {}

@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Promise } from 'firebase/app';
+import { Promise, User as FUser } from 'firebase/app';
 import { tap } from 'rxjs/operators/tap';
 import { Store } from 'store';
 
 import { User } from 'auth/shared/services';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
-  auth$ = this.af.authState.pipe(
+  auth$ = this.authState.pipe(
     tap(val => {
       if (!val) {
         return this.setStore(null);
@@ -22,6 +23,10 @@ export class AuthService {
   );
 
   constructor(private af: AngularFireAuth, private store: Store) {}
+
+  get authState(): Observable<FUser> {
+    return this.af.authState;
+  }
 
   createUser(email: string, password: string): Promise<any> {
     return this.af.auth.createUserWithEmailAndPassword(email, password);

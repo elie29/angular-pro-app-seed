@@ -3,6 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthFormComponent } from './components/auth-form/auth-form.component';
+import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
@@ -11,10 +12,15 @@ import { AuthService } from './services/auth/auth.service';
   exports: [AuthFormComponent] // used in register and login containers
 })
 export class SharedModule {
+  /**
+   * this method will be called in auth.module.ts
+   * so all instances in providers will be created once
+   * and shared among all modules including SharedModule or AuthModule
+   */
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [AuthService] // AuthService will be created once and shared among login && register module
+      providers: [AuthService, AuthGuard]
     };
   }
 }

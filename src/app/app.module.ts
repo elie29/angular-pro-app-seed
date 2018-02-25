@@ -16,7 +16,10 @@ import { AppHeaderComponent } from './components/app-header/app-header.component
 import { AppNavComponent } from './components/app-nav/app-nav.component';
 
 // routes
-export const ROUTES: Routes = [];
+const ROUTES: Routes = [
+  // fallback routes
+  { path: '**', pathMatch: 'full', redirectTo: 'health' }
+];
 
 @NgModule({
   imports: [
