@@ -8,7 +8,11 @@ import { RegisterComponent } from './containers/register/register.component';
 const ROUTES: Routes = [{ path: '', component: RegisterComponent }];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(ROUTES), SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(ROUTES),
+    SharedModule // for component export ans shared services
+  ],
   declarations: [RegisterComponent]
 })
 export class RegisterModule {}

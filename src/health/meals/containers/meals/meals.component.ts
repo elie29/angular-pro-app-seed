@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { share } from 'rxjs/operators/share';
 
 import { Meal } from 'health/shared/services/meals/meal.interface';
 import { MealsService } from 'health/shared/services/meals/meals.service';
@@ -19,8 +20,9 @@ export class MealsComponent implements OnInit, OnDestroy {
   constructor(private mealsService: MealsService, private store: Store) {}
 
   ngOnInit(): void {
-    this.subscription = this.mealsService.meal$.subscribe();
-    this.meals$ = this.store.select('meals');
+    this.subscription = this.mealsService.meals$.subscribe();
+    // Share for multi async in template
+    this.meals$ = this.store.select('meals').pipe(share<Meal[]>());
   }
 
   ngOnDestroy(): void {

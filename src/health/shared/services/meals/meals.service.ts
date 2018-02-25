@@ -9,9 +9,9 @@ import { Store } from 'store';
 
 @Injectable()
 export class MealsService {
-  meal$: Observable<Meal[]> = this.db
-    .list(`meals/${this.uid}`)
-    .pipe(tap(meals => this.store.set('meals', meals)));
+  meals$: Observable<Meal[]> = this.list.pipe(
+    tap(meals => this.store.set('meals', meals))
+  );
 
   constructor(
     private store: Store,
@@ -19,8 +19,19 @@ export class MealsService {
     private authService: AuthService
   ) {}
 
+  private get list() {
+    return this.db.list(`meals/${this.uid}`);
+  }
+
   get uid() {
     // User is autheticated
     return this.authService.user.uid;
+  }
+
+  /**
+   * Returns thenable
+   */
+  addMeal(meal: Meal) {
+    return this.list.push(meal);
   }
 }

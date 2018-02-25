@@ -7,7 +7,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule], // has a component that needs these
   declarations: [AuthFormComponent],
   exports: [AuthFormComponent] // used in register and login containers
 })
@@ -15,7 +15,7 @@ export class SharedModule {
   /**
    * this method will be called in auth.module.ts
    * so all instances in providers will be created once
-   * and shared among all modules including SharedModule or AuthModule
+   * and shared among all modules including SharedModule and AuthModule
    */
   static forRoot(): ModuleWithProviders {
     return {
