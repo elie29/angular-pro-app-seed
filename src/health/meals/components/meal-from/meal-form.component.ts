@@ -6,6 +6,7 @@ import {
   Output
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { Meal } from 'health/shared/services/meals/meal.interface';
 
 @Component({
@@ -17,7 +18,7 @@ import { Meal } from 'health/shared/services/meals/meal.interface';
 export class MealFormComponent {
   form: FormGroup = this.fb.group({
     name: ['', Validators.required],
-    // initialised with an empty array
+    // initialised with an empty field
     ingredients: this.fb.array([''])
   });
 

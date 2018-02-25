@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
-import { tap } from 'rxjs/operators/tap';
-
 import { AuthService } from 'auth/shared/services';
-import { Meal } from './meal.interface';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { filter } from 'rxjs/operators/filter';
+import { map } from 'rxjs/operators/map';
+import { tap } from 'rxjs/operators/tap';
 import { Store } from 'store';
+
+import { Meal } from './meal.interface';
 
 @Injectable()
 export class MealsService {
@@ -37,5 +40,17 @@ export class MealsService {
 
   removeMeal(key: string) {
     return this.list.remove(key);
+  }
+
+  getMeal(key: string): any {
+    if (!key) {
+      return of({});
+    }
+    return this.store
+      .select('meals')
+      .pipe(
+        filter(Boolean),
+        map((meals: Meal[]) => meals.find(meal => meal.$key === key))
+      );
   }
 }
