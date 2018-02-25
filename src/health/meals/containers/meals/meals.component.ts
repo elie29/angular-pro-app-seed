@@ -9,11 +9,7 @@ import { Store } from 'store';
 @Component({
   selector: 'meals',
   styleUrls: ['meals.component.scss'],
-  template: `
-    <div class="meals">
-      {{ meals$ | async | json }}
-    </div>
-  `
+  templateUrl: 'meals.component.html'
 })
 export class MealsComponent implements OnInit, OnDestroy {
   meals$: Observable<Meal[]>;
