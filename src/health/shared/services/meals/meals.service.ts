@@ -34,4 +34,8 @@ export class MealsService {
   addMeal(meal: Meal) {
     return this.list.push(meal);
   }
+
+  removeMeal(key: string) {
+    return this.list.remove(key);
+  }
 }
