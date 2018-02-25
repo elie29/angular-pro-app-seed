@@ -28,6 +28,10 @@ export class AuthService {
     return this.af.authState;
   }
 
+  get user(): FUser {
+    return this.af.auth.currentUser;
+  }
+
   createUser(email: string, password: string): Promise<any> {
     return this.af.auth.createUserWithEmailAndPassword(email, password);
   }

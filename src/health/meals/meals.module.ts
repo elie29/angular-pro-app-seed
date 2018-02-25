@@ -1,13 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MealsComponent } from 'health/meals/containers/meals/meals.component';
 import { RouterModule, Routes } from '@angular/router';
+
+import { MealsComponent } from './containers/meals/meals.component';
+import { SharedModule } from 'health/shared/shared.module';
 
 const ROUTES: Routes = [{ path: '', component: MealsComponent }];
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, RouterModule.forChild(ROUTES)],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(ROUTES),
+    SharedModule
+  ],
   declarations: [MealsComponent]
 })
 export class MealsModule {}

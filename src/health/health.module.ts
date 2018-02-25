@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { AuthGuard } from 'auth/shared/guards/auth.guard';
+import { SharedModule } from 'health/shared/shared.module';
 
 const ROUTES: Routes = [
   {
@@ -23,6 +25,6 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(ROUTES)]
+  imports: [RouterModule.forChild(ROUTES), SharedModule.forRoot()]
 })
 export class HealthModule {}
