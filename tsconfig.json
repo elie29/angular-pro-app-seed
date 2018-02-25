@@ -7,7 +7,8 @@
     "baseUrl": ".",
     "paths": {
       "store": ["src/store.ts"],
-      "auth/*": ["src/auth/*"]
+      "auth/*": ["src/auth/*"],
+      "health/*": ["src/health/*"]
     },
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
