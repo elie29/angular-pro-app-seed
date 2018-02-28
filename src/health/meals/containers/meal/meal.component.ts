@@ -25,7 +25,9 @@ export class MealComponent implements OnInit, OnDestroy {
     // subscribe to meals$ in order to use the store.select in getMeal
     this.subscription = this.mealsService.meals$.subscribe();
     this.meal$ = this.route.params.pipe(
-      switchMap(params => this.mealsService.getMeal(params.id))
+      switchMap(params => {
+        return this.mealsService.getMeal(params.id);
+      })
     );
   }
 
@@ -35,6 +37,19 @@ export class MealComponent implements OnInit, OnDestroy {
 
   async addMeal(event: Meal) {
     await this.mealsService.addMeal(event);
+    this.backToMeals();
+  }
+
+  async updateMeal(event: Meal) {
+    // we use the snapshot, the static call
+    const id = this.route.snapshot.params.id;
+    await this.mealsService.updateMeal(id, event);
+    this.backToMeals();
+  }
+
+  async removeMeal() {
+    const id = this.route.snapshot.params.id;
+    await this.mealsService.removeMeal(id);
     this.backToMeals();
   }
 

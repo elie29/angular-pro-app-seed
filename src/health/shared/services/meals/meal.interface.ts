@@ -1,6 +1,6 @@
 export interface Meal {
   name: string;
-  ingerdients: string[];
+  ingredients: string[];
   timestamp: number;
   $key: string;
   $exists: () => boolean;

@@ -38,11 +38,15 @@ export class MealsService {
     return this.list.push(meal);
   }
 
+  updateMeal(key: string, meal: Meal) {
+    return this.db.object(`meals/${this.uid}/${key}`).update(meal);
+  }
+
   removeMeal(key: string) {
     return this.list.remove(key);
   }
 
-  getMeal(key: string): any {
+  getMeal(key: string): Observable<any> {
     if (!key) {
       return of({});
     }
