@@ -11,7 +11,7 @@ const ROUTES: Routes = [{ path: '', component: RegisterComponent }];
   imports: [
     CommonModule,
     RouterModule.forChild(ROUTES),
-    SharedModule // for component export ans shared services
+    SharedModule // for exported component and shared services
   ],
   declarations: [RegisterComponent]
 })
