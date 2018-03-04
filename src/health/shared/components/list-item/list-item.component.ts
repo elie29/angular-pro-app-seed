@@ -1,11 +1,10 @@
 import {
-  Component,
   ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
   Input,
-  Output,
-  EventEmitter
+  Output
 } from '@angular/core';
-import { Meal } from 'health/shared/services/meals/meal.interface';
 
 @Component({
   selector: 'list-item',
@@ -55,8 +54,8 @@ export class ListItemComponent {
 
   toggled = false;
 
-  getRoute(item: Meal): string[] {
-    return ['/health/meals', item.$key];
+  getRoute(item: any): string[] {
+    return ['/health', item.ingredients ? 'meals' : 'workouts', item.$key];
   }
 
   removeItem(): void {

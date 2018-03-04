@@ -4,16 +4,19 @@ import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { pluck } from 'rxjs/operators/pluck';
 
 import { Meal } from 'health/shared/services/meals/meal.interface';
+import { Workout } from 'health/shared/services/Workouts/Workout.interface';
 import { User } from 'auth/shared/services';
 
 export interface State {
   user: User;
   meals: Meal[];
+  workouts: Workout[];
 }
 
 const state: State = {
   user: null,
-  meals: null
+  meals: null,
+  workouts: null
 };
 
 export class Store {
