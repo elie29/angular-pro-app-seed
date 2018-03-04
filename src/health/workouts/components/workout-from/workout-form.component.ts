@@ -29,7 +29,17 @@ export class WorkoutFormComponent implements OnChanges {
   @Output() remove = new EventEmitter<Workout>();
 
   form = this.fb.group({
-    name: ['', Validators.required]
+    name: ['', Validators.required],
+    type: ['strength'],
+    strength: this.fb.group({
+      reps: 0,
+      sets: 0,
+      weight: 0
+    }),
+    endurance: this.fb.group({
+      distance: 0,
+      duration: 0
+    })
   });
 
   constructor(private fb: FormBuilder) {}
@@ -39,6 +49,12 @@ export class WorkoutFormComponent implements OnChanges {
       this.form.patchValue(this.workout);
       this.exists = true;
     }
+  }
+
+  get placeholder(): string {
+    return `e.g. ${
+      this.form.get('type').value === 'strength' ? 'Benchpress' : 'Treadmill'
+    }`;
   }
 
   get required() {

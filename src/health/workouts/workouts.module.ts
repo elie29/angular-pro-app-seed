@@ -8,6 +8,7 @@ import { SharedModule } from 'health/shared/shared.module';
 import { WorkoutComponent } from './containers/workout/workout.component';
 import { WorkoutsComponent } from './containers/workouts/workouts.component';
 import { WorkoutFormComponent } from './components/workout-from/workout-form.component';
+import { WorkoutTypeComponent } from './components/workout-type/workout-type.component';
 
 const ROUTES: Routes = [
   { path: '', component: WorkoutsComponent },
@@ -22,6 +23,11 @@ const ROUTES: Routes = [
     ReactiveFormsModule,
     SharedModule
   ],
-  declarations: [WorkoutsComponent, WorkoutComponent, WorkoutFormComponent]
+  declarations: [
+    WorkoutsComponent,
+    WorkoutComponent,
+    WorkoutFormComponent,
+    WorkoutTypeComponent
+  ]
 })
 export class WorkoutsModule {}
