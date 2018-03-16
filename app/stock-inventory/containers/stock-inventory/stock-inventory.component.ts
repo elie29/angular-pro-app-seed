@@ -108,6 +108,7 @@ export class StockInventoryComponent implements OnInit {
         stock: this.fb.array([])
       },
       {
+        // validator and asyncValidator are extra keys for group
         validator: StockValidators.checkStockExists
       }
     );

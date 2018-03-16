@@ -1,4 +1,8 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import {
+  AbstractControl,
+  ValidationErrors,
+  AsyncValidatorFn
+} from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 
@@ -10,6 +14,7 @@ export class StockValidators {
     return regex.test(control.value) ? null : { invalidBranch: true };
   }
 
+  // Called on a group
   static checkStockExists(group: AbstractControl): ValidationErrors | null {
     const selector = group.get('selector'); // la liste déroulante
     const stock = group.get('stock');
@@ -22,7 +27,7 @@ export class StockValidators {
     return exists ? { stockExists: true } : null;
   }
 
-  static validateBranch(stockService: StockInventoryService): Function {
+  static validateBranch(stockService: StockInventoryService): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       return stockService
         .checkBranchId(control.value)
