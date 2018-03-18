@@ -11,12 +11,14 @@ export interface State {
   user: User;
   meals: Meal[];
   workouts: Workout[];
+  date: Date;
 }
 
 const state: State = {
   user: null,
   meals: null,
-  workouts: null
+  workouts: null,
+  date: null
 };
 
 export class Store {
