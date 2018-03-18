@@ -27,7 +27,7 @@ export class MealsService {
   }
 
   get uid() {
-    // User is autheticated
+    // User is authenticated
     return this.authService.user.uid;
   }
 
