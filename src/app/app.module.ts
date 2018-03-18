@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { Store } from 'store';
 
@@ -24,7 +24,9 @@ const ROUTES: Routes = [
 @NgModule({
   imports: [
     BrowserModule,
-    RouterModule.forRoot(ROUTES),
+    RouterModule.forRoot(ROUTES, {
+      preloadingStrategy: PreloadAllModules
+    }),
     AuthModule,
     HealthModule
   ],
