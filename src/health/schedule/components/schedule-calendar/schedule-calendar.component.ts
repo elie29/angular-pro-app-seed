@@ -19,7 +19,7 @@ export class ScheduleCalendarComponent {
 
   @Input()
   set date(date: Date) {
-    this.selectedDay = new Date(date.getTime());
+    this.selectedDay = new Date(date);
     this.selectedDayIndex = this.getToday(this.selectedDay);
     this.selectedWeek = this.getStartOfWeek(this.selectedDay);
   }
@@ -38,19 +38,23 @@ export class ScheduleCalendarComponent {
     this.change.emit(startOfWeek);
   }
 
-  private getToday(date: Date) {
-    let today = date.getDay() - 1;
-    if (today < 0) {
-      today = 6;
+  /**
+   * @param date current date
+   *
+   * @returns 0 => monday, 6 => sunday
+   */
+  private getToday(date: Date): number {
+    const today = date.getDay();
+    if (today === 0) {
+      return 6;
     }
-    return today;
+    return today - 1;
   }
 
   private getStartOfWeek(date: Date): Date {
-    const start = new Date();
-    const day = date.getDay(); // 0 => sunday
-    const diff = date.getDate() - day + (day === 0 ? -6 : 1);
-    start.setDate(diff);
+    const start = new Date(date); // clone the date
+    const day = this.getToday(start);
+    start.setDate(start.getDate() - day);
     return start;
   }
 }
