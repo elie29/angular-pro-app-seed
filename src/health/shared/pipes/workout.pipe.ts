@@ -8,10 +8,9 @@ export class WorkoutPipe implements PipeTransform {
     if (value.type === 'endurance') {
       return `Distance: ${value.endurance.distance + 'km'}, Duration: ${value
         .endurance.duration + 'mins'}`;
-    } else {
-      return `Weight: ${value.strength.weight + 'kg'}, Reps: ${
-        value.strength.reps
-      }, Sets: ${value.strength.sets}`;
     }
+    return `Weight: ${value.strength.weight + 'kg'}, Reps: ${
+      value.strength.reps
+    }, Sets: ${value.strength.sets}`;
   }
 }
