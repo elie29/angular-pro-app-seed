@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -31,7 +32,7 @@ export class MealFormComponent implements OnChanges {
   exists = false;
   toggled = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private location: Location) {}
 
   // This function will get called if we chaneg our firebase
   ngOnChanges(changes: SimpleChanges): void {
@@ -93,5 +94,9 @@ export class MealFormComponent implements OnChanges {
 
   toggle(): void {
     this.toggled = !this.toggled;
+  }
+
+  cancelLink(): void {
+    this.location.back();
   }
 }

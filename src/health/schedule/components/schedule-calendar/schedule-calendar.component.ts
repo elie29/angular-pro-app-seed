@@ -62,7 +62,7 @@ export class ScheduleCalendarComponent {
     this.select.emit({
       ...event, // type, assigned and data
       day,
-      section
+      section // section key
     });
   }
 

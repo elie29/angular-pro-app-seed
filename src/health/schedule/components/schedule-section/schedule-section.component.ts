@@ -14,7 +14,7 @@ import { ScheduleItem } from 'health/shared/services/schedule/schedule.interface
   styleUrls: ['schedule-section.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ScheduleSection {
+export class ScheduleSectionComponent {
   @Input() name: string;
 
   @Input() section: ScheduleItem;

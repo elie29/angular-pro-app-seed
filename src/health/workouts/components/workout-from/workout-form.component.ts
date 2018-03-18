@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,7 +8,7 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Workout } from 'health/shared/services/workouts/workout.interface';
 
 @Component({
@@ -21,11 +22,8 @@ export class WorkoutFormComponent implements OnChanges {
   exists = false;
 
   @Input() workout: Workout;
-
   @Output() create = new EventEmitter<Workout>();
-
   @Output() update = new EventEmitter<Workout>();
-
   @Output() remove = new EventEmitter<Workout>();
 
   form = this.fb.group({
@@ -42,7 +40,7 @@ export class WorkoutFormComponent implements OnChanges {
     })
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private location: Location) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.workout && this.workout.$key) {
@@ -82,5 +80,9 @@ export class WorkoutFormComponent implements OnChanges {
 
   toggle() {
     this.toggled = !this.toggled;
+  }
+
+  cancelLink(): void {
+    this.location.back();
   }
 }

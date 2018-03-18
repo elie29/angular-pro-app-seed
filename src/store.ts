@@ -14,7 +14,9 @@ export interface State {
   workouts: Workout[];
   schedule: ScheduleItem[];
   selected: any;
+  list: any;
   date: Date;
+  [key: string]: any; // for selection purpose
 }
 
 const state: State = {
@@ -23,6 +25,7 @@ const state: State = {
   workouts: null,
   schedule: null,
   selected: null,
+  list: null,
   date: null
 };
 
