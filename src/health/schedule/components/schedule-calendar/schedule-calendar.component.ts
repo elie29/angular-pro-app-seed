@@ -5,6 +5,10 @@ import {
   Input,
   Output
 } from '@angular/core';
+import {
+  ScheduleItem,
+  ScheduleList
+} from 'health/shared/services/schedule/schedule.interfaces';
 
 @Component({
   selector: 'schedule-calendar',
@@ -17,6 +21,13 @@ export class ScheduleCalendarComponent {
   selectedDay: Date;
   selectedWeek: Date;
 
+  sections = [
+    { key: 'morning', name: 'Morning' },
+    { key: 'lunch', name: 'Lunch' },
+    { key: 'evening', name: 'Evening' },
+    { key: 'snacks', name: 'Snacks and Drinks' }
+  ];
+
   @Input()
   set date(date: Date) {
     this.selectedDay = new Date(date);
@@ -24,7 +35,11 @@ export class ScheduleCalendarComponent {
     this.selectedWeek = this.getStartOfWeek(this.selectedDay);
   }
 
+  @Input() items: ScheduleList;
+
   @Output() change = new EventEmitter<Date>();
+
+  @Output() select = new EventEmitter<any>();
 
   selectDay(index: number): void {
     const date = new Date(this.selectedWeek);
@@ -36,6 +51,19 @@ export class ScheduleCalendarComponent {
     const startOfWeek = this.getStartOfWeek(new Date());
     startOfWeek.setDate(startOfWeek.getDate() + weekOffset * 7);
     this.change.emit(startOfWeek);
+  }
+
+  getSection(name: string): ScheduleItem {
+    return (this.items && this.items[name]) || {};
+  }
+
+  selectSection(event: any, section: string): void {
+    const day = this.selectedDay;
+    this.select.emit({
+      ...event, // type, assigned and data
+      day,
+      section
+    });
   }
 
   /**

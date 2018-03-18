@@ -3,14 +3,17 @@ import { Observable } from 'rxjs/Observable';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { pluck } from 'rxjs/operators/pluck';
 
+import { User } from 'auth/shared/services';
 import { Meal } from 'health/shared/services/meals/meal.interface';
 import { Workout } from 'health/shared/services/Workouts/Workout.interface';
-import { User } from 'auth/shared/services';
+import { ScheduleItem } from 'health/shared/services/schedule/schedule.interfaces';
 
 export interface State {
   user: User;
   meals: Meal[];
   workouts: Workout[];
+  schedule: ScheduleItem[];
+  selected: any;
   date: Date;
 }
 
@@ -18,6 +21,8 @@ const state: State = {
   user: null,
   meals: null,
   workouts: null,
+  schedule: null,
+  selected: null,
   date: null
 };
 

@@ -18,7 +18,7 @@ import { WorkoutsService } from './services/workouts/workouts.service';
     RouterModule
   ],
   declarations: [ListItemComponent, JoinPipe, WorkoutPipe],
-  exports: [ListItemComponent]
+  exports: [ListItemComponent, JoinPipe, WorkoutPipe]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
