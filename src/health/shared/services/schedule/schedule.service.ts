@@ -6,17 +6,31 @@ import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { tap } from 'rxjs/operators/tap';
+import { withLatestFrom } from 'rxjs/operators/withLatestFrom';
 import { Store } from 'store';
-import { ScheduleList } from 'health/shared/services/schedule/schedule.interfaces';
+import {
+  ScheduleList,
+  ScheduleItem
+} from 'health/shared/services/schedule/schedule.interfaces';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ScheduleService {
-  date$ = new BehaviorSubject(new Date());
+  private date$ = new BehaviorSubject(new Date());
+  private section$ = new Subject();
+  private itemList$ = new Subject();
 
-  section$ = new Subject();
+  items$ = this.itemList$.pipe(
+    withLatestFrom(this.section$),
+    map(([items, section]: any[]) => this.saveItems(items, section))
+  );
 
   selected$ = this.section$.pipe(tap(next => this.store.set('selected', next)));
+
+  list$ = this.section$.pipe(
+    map((value: any) => this.store.value[value.type]),
+    tap(next => this.store.set('list', next))
+  );
 
   schedule$: Observable<ScheduleList> = this.date$.pipe(
     tap(next => this.store.set('date', next)),
@@ -43,6 +57,37 @@ export class ScheduleService {
 
   selectSection(data: any): void {
     this.section$.next(data);
+  }
+
+  updateItems(items: string[]): void {
+    this.itemList$.next(items);
+  }
+
+  saveItems(items: string[], section: any): any {
+    const id = section.data.$key;
+    if (id) {
+      return this.updateSection(id, items, section);
+    }
+    return this.createSection(items, section);
+  }
+
+  private createSection(items: string[], section: any) {
+    const payload: any = {
+      workouts: null,
+      meals: null,
+      section: section.section,
+      timestamp: new Date(section.day).getTime(),
+      ...items
+    };
+    return this.db.list(`schedule/${this.uid}`).push(payload);
+  }
+
+  private updateSection(key: string, items: string[], section: any) {
+    const payload: ScheduleItem = {
+      ...section.data,
+      ...items
+    };
+    return this.db.object(`schedule/${this.uid}/${key}`).update(payload);
   }
 
   /**

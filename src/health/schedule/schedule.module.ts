@@ -3,12 +3,14 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
+import { SharedModule } from 'health/shared/shared.module';
+
+import { ScheduleAssignComponent } from './components/schedule-assign/schedule-assign.component';
 import { ScheduleCalendarComponent } from './components/schedule-calendar/schedule-calendar.component';
 import { ScheduleControlsComponent } from './components/schedule-controls/schedule-controls.component';
 import { ScheduleDaysComponent } from './components/schedule-days/schedule-days.component';
-import { ScheduleSection } from './components/schedule-section/schedule-section.component';
+import { ScheduleSectionComponent } from './components/schedule-section/schedule-section.component';
 import { ScheduleComponent } from './containers/schedule/schedule.component';
-import { SharedModule } from 'health/shared/shared.module';
 
 const ROUTES: Routes = [{ path: '', component: ScheduleComponent }];
 
@@ -24,7 +26,8 @@ const ROUTES: Routes = [{ path: '', component: ScheduleComponent }];
     ScheduleCalendarComponent,
     ScheduleControlsComponent,
     ScheduleDaysComponent,
-    ScheduleSection
+    ScheduleSectionComponent,
+    ScheduleAssignComponent
   ]
 })
 export class ScheduleModule {}
