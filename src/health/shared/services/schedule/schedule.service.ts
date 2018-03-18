@@ -10,4 +10,8 @@ export class ScheduleService {
   schedule$ = this.date$.pipe(tap(next => this.store.set('date', next)));
 
   constructor(private store: Store) {}
+
+  updateDate(date: Date): void {
+    this.date$.next(date);
+  }
 }
