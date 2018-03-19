@@ -39,9 +39,11 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.list$ = this.store.select('list');
 
     this.subscriptions = [
+      // Subscribe to fill the store
       this.scheduleService.schedule$.subscribe(),
       this.scheduleService.selected$.subscribe(),
       this.scheduleService.list$.subscribe(),
+      // This is used to save items
       this.scheduleService.items$.subscribe(),
       // Retrieve meals and workouts for list$
       this.mealService.meals$.subscribe(),

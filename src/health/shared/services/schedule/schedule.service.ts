@@ -32,26 +32,26 @@ export class ScheduleService {
    */
   private itemList$ = new Subject();
 
-  // based on date$ when it changes
+  // based on date$ when it changes, it handles all items for the current date
   schedule$: Observable<ScheduleList> = this.date$.pipe(
-    tap(next => this.store.set('date', next)),
+    tap(next => this.store.set('date', next)), // update the date in store
     map(date => this.startEndAt(date)),
     switchMap(({ startAt, endAt }) => this.getSchedule(startAt, endAt)),
     map(data => this.mappedData(data)),
     tap(data => this.store.set('schedule', data))
   );
 
-  // based on section$ when it changes
+  // based on section$ when it changes, it handle the selected items
   selected$ = this.section$.pipe(tap(next => this.store.set('selected', next)));
 
-  // based on section$ when it changes
+  // based on section$ when it changes, it handles the assigned data
   list$ = this.section$.pipe(
     // value: type, assigned, data: current scheduleItem, day, section
     map((value: any) => this.store.value[value.type]), // Meals or Workouts
     tap(next => this.store.set('list', next))
   );
 
-  // based on itemList$ when it changes with the selected section
+  // based on itemList$ when it changes with the selected section, to save items
   items$ = this.itemList$.pipe(
     withLatestFrom(this.section$),
     map(([items, section]: any[]) => this.saveItems(items, section))
