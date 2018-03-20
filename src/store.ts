@@ -31,9 +31,10 @@ const state: State = {
 
 export class Store {
   private subject = new BehaviorSubject<State>(state);
+  // we can use pipe directly, but with asObservable we limit the use of store
   private store = this.subject.asObservable().pipe(distinctUntilChanged());
 
-  get value() {
+  get value(): State {
     return this.subject.value;
   }
 
@@ -41,7 +42,11 @@ export class Store {
     return this.store.pipe(pluck(name));
   }
 
-  set(name: string, state: any) {
-    this.subject.next({ ...this.value, [name]: state });
+  set(name: string, value: any): void {
+    this.subject.next({ ...this.value, [name]: value });
+  }
+
+  get(name: string): any {
+    return this.value[name];
   }
 }
