@@ -34,7 +34,6 @@ export class ScheduleService {
 
   // based on date$ when it changes, it handles all items for the current date
   schedule$: Observable<ScheduleList> = this.date$.pipe(
-    tap(next => this.store.set('date', next)), // update the date in store
     map(date => this.startEndAt(date)),
     switchMap(({ startAt, endAt }) => this.getSchedule(startAt, endAt)),
     map(data => this.mappedData(data)),
@@ -61,7 +60,10 @@ export class ScheduleService {
     private store: Store,
     private db: AngularFireDatabase,
     private authService: AuthService
-  ) {}
+  ) {
+    // Listen to date$ change and update the store
+    this.date$.subscribe(date => this.store.set('date', date));
+  }
 
   get uid() {
     // User is authenticated
@@ -69,6 +71,7 @@ export class ScheduleService {
   }
 
   updateDate(date: Date): void {
+    // Inform the subject in order to trigger other observable based on date$
     this.date$.next(date);
   }
 
