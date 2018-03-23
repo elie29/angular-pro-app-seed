@@ -42,5 +42,5 @@ const CONFIG: FirebaseAppConfig = {
   ]
 })
 // including AuthModule on AppModule will includes all above imports
-// so all instances in SharedModule providers will be Shared amon App
+// so all instances in SharedModule providers will be Shared among App
 export class AuthModule {}

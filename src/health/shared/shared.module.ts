@@ -24,7 +24,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      // All this services would be injected once in health.module
+      // All these services would be injected once in health.module
       // forRoot will be called once and sharedModule will be included in many other modules
       providers: [MealsService, WorkoutsService, ScheduleService]
     };
